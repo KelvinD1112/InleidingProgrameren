@@ -1,5 +1,21 @@
 console.log("hello world");
 // declaring variables and constants
+// main healthbars:
+const health = document.getElementById("health");
+const hunger = document.getElementById("hunger");
+const thirst = document.getElementById("thirst");
+const energy = document.getElementById("energy");
+const moisture = document.getElementById("moisture");
+const oxygen = document.getElementById("oxygen");
+//overtime healthbars:
+const overtime_moisture = document.getElementById("overtime_moisture");
+const overtime_oxygen = document.getElementById("overtime_oxygen");
+//mascot animations:
+const eyeState = document.getElementById("mascotEye");
+const mouthState = document.getElementById("mascotMouth");
+const bodyState = document.getElementById("mascotBody");
+const headState = document.getElementById("mascotHead");
+// misc:
 let igniteState = false;
 let gameStarted = false;
 let repeater;
@@ -10,13 +26,12 @@ const audioCrunch = ["audio/crunch/c1.mp3", "audio/crunch/c2.mp3", "audio/crunch
 const audioDeath = ["audio/death/x1.mp3", "audio/death/x2.mp3", "audio/death/x3.mp3", "audio/death/x4.mp3", "audio/death/x5.mp3"];
 
 // this makes it so the start button starts the repeater
-let startButton = document.getElementById("start");
-function doAllTheStuff() {
-  startScreen.style.display = "none";
+const startButton = document.getElementById("start");
+function startGame() {
+  document.getElementById("startScreen").style.display = "none";
   gameStarted = true;
   repeater = setInterval(second, 10);
 }
-startButton.addEventListener("click", doAllTheStuff);
 
 // this is the repeater, everthing within this function will repeat every 10ms
 function second() {
@@ -29,8 +44,8 @@ function second() {
   moisture.value -= 0.01;
   oxygen.value -= 0.01;
 
-  // health function
-  let empty = (hunger.value == 0) + (thirst.value == 0) + (energy.value == 0);
+  // health functionality
+  const empty = (hunger.value === 0) + (thirst.value === 0) + (energy.value === 0);
   if (empty > 0) {
     health.value -= 0.025 * empty;
   }
@@ -38,17 +53,17 @@ function second() {
   // overtime function
   if (moisture.value === 0) {
     overtime_moisture.value -= 0.01;
-    mascotEye.src = "fotos/expressions/eyeDry.png";
+    eyeState.src = "fotos/expressions/eyeDry.png";
   } else {
     overtime_moisture.value += 0.01;
   }
 
   if (oxygen.value === 0) {
     overtime_oxygen.value -= 0.01;
-    mascotHead.src = "fotos/expressions/headOxygen.png";
+    headState.src = "fotos/expressions/headOxygen.png";
   } else {
     overtime_oxygen.value += 0.01;
-    mascotHead.src = "fotos/expressions/headNeutral.png";
+    headState.src = "fotos/expressions/headNeutral.png";
   }
 
   if (overtime_oxygen.value === 0) {
@@ -56,7 +71,7 @@ function second() {
   }
 
   if (overtime_moisture.value === 0) {
-    mascotEye.src = "fotos/expressions/eyeBlind.png";
+    eyeState.src = "fotos/expressions/eyeBlind.png";
     document.getElementById("healthBars").style.visibility = "hidden";
     document.getElementById("blink").style.display = "none";
     document.getElementById("internals").style.width = "145px";
@@ -72,13 +87,12 @@ function second() {
   }
 
   if (igniteState) {
-    mascotBody.src = "fotos/expressions/bodyBurn.png";
-    mascotEye.src = "fotos/expressions/eyeBurn.png";
-    mascotMouth.src = "fotos/expressions/mouthOpen.png";
+    bodyState.src = "fotos/expressions/bodyBurn.png";
+    eyeState.src = "fotos/expressions/eyeBurn.png";
+    mouthState.src = "fotos/expressions/mouthOpen.png";
     health.value -= 0.1;
     burnLock();
   }
-  console.log(igniteState);
 
   // this if statement makes it so there is a difference between seconds and minutes
   if (scoreboard >= 60) {
@@ -91,10 +105,10 @@ function second() {
   if (name === "") {
     name = "You";
   } else if (name === "Dinnerbone") {
-    mascotHead.style.transform = "rotate(180deg)";
-    mascotBody.style.transform = "rotate(180deg)";
-    mascotEye.style.transform = "rotate(180deg)";
-    mascotMouth.style.transform = "rotate(180deg)";
+    headState.style.transform = "rotate(180deg)";
+    bodyState.style.transform = "rotate(180deg)";
+    eyeState.style.transform = "rotate(180deg)";
+    mouthState.style.transform = "rotate(180deg)";
   } else if (name === "Duality" || name === "Weeknd") {
     moisture.value = 0;
     overtime_moisture.value = 0;
@@ -119,8 +133,8 @@ function second() {
     console.log(randomSound);
     let audio = new Audio(audioDeath[randomSound]);
     audio.play();
-    mascotEye.src = "fotos/expressions/eyeDead.png";
-    mascotBody.src = "fotos/expressions/bodyDead.png";
+    eyeState.src = "fotos/expressions/eyeDead.png";
+    bodyState.src = "fotos/expressions/bodyDead.png";
     actionPause();
     restartScreen.style.visibility = "visible";
     if (minuteScore === 1) {
@@ -133,7 +147,7 @@ function second() {
   }
 }
 
-// button functionality     -    here i do still use getElementById because they are used for buttons, in which case i believe it helps readability
+// button functionality
 function actionPause() {
   document.getElementById("beans").style.pointerEvents = "none";
   document.getElementById("protein").style.pointerEvents = "none";
@@ -178,12 +192,12 @@ function beans() {
   if (gameStarted) {
     hunger.value += 15;
     energy.value += 5;
-    mascotBody.src = "fotos/expressions/bodyBeans.png";
+    bodyState.src = "fotos/expressions/bodyBeans.png";
     let audio = new Audio("audio/slurp.mp3");
     audio.play();
     actionPause();
     setTimeout(function () {
-      mascotBody.src = "fotos/expressions/bodyNeutral.png";
+      bodyState.src = "fotos/expressions/bodyNeutral.png";
       actionPlay();
     }, 1600);
   }
@@ -195,13 +209,13 @@ function protein() {
   if (gameStarted) {
     hunger.value += 5;
     energy.value += 25;
-    mascotBody.src = "fotos/expressions/bodyProtein.png";
+    bodyState.src = "fotos/expressions/bodyProtein.png";
     const randomSound = Math.floor(Math.random() * 5);
     let audio = new Audio(audioCrunch[randomSound]);
     audio.play();
     actionPause();
     setTimeout(function () {
-      mascotBody.src = "fotos/expressions/bodyNeutral.png";
+      bodyState.src = "fotos/expressions/bodyNeutral.png";
       actionPlay();
     }, 750);
   }
@@ -212,12 +226,12 @@ const drinkButton = document.getElementById("drink");
 function drink() {
   if (gameStarted) {
     thirst.value += 10;
-    mascotBody.src = "fotos/expressions/bodyDrink.png";
+    bodyState.src = "fotos/expressions/bodyDrink.png";
     let audio = new Audio("audio/gulp.mp3");
     audio.play();
     actionPause();
     setTimeout(function () {
-      mascotBody.src = "fotos/expressions/bodyNeutral.png";
+      bodyState.src = "fotos/expressions/bodyNeutral.png";
       actionPlay();
     }, 750);
   }
@@ -228,10 +242,10 @@ const blinkButton = document.getElementById("blink");
 function blink() {
   if (gameStarted) {
     moisture.value += 5;
-    mascotEye.src = "fotos/expressions/eyeBlink.png";
+    eyeState.src = "fotos/expressions/eyeBlink.png";
     actionPause();
     setTimeout(function () {
-      mascotEye.src = "fotos/expressions/eyeNeutral.png";
+      eyeState.src = "fotos/expressions/eyeNeutral.png";
       actionPlay();
     }, 150);
   }
@@ -242,10 +256,10 @@ const breatheButton = document.getElementById("breathe");
 function breathe() {
   if (gameStarted) {
     oxygen.value += 3;
-    mascotMouth.src = "fotos/expressions/mouthOpen.png";
+    mouthState.src = "fotos/expressions/mouthOpen.png";
     actionPause();
     setTimeout(function () {
-      mascotMouth.src = "fotos/expressions/mouthNeutral.png";
+      mouthState.src = "fotos/expressions/mouthNeutral.png";
       document.getElementById("breathe").style.pointerEvents = "auto";
       actionPlay();
     }, 500);
@@ -257,15 +271,15 @@ const pillButton = document.getElementById("heal");
 function heal() {
   if (gameStarted) {
     health.value += 20;
-    mascotBody.src = "fotos/expressions/bodyPills.png";
-    mascotMouth.src = "fotos/expressions/mouthOpen.png";
+    bodyState.src = "fotos/expressions/bodyPills.png";
+    mouthState.src = "fotos/expressions/mouthOpen.png";
     document.getElementById("medLock").style.visibility = "visible";
     let audio = new Audio("audio/pills.mp3");
     audio.play();
     actionPause();
     setTimeout(function () {
-      mascotBody.src = "fotos/expressions/bodyNeutral.png";
-      mascotMouth.src = "fotos/expressions/mouthNeutral.png";
+      bodyState.src = "fotos/expressions/bodyNeutral.png";
+      mouthState.src = "fotos/expressions/mouthNeutral.png";
       actionPlay();
     }, 750);
     setTimeout(function () {
@@ -278,15 +292,15 @@ function heal() {
 const extinguishButton = document.getElementById("extinguish");
 function extinguish() {
   if (gameStarted) {
-    mascotBody.src = "fotos/expressions/bodyExtinguish.png";
-    mascotEye.src = "fotos/expressions/eyeNeutral.png";
-    mascotMouth.src = "fotos/expressions/mouthNeutral.png";
+    bodyState.src = "fotos/expressions/bodyExtinguish.png";
+    eyeState.src = "fotos/expressions/eyeNeutral.png";
+    mouthState.src = "fotos/expressions/mouthNeutral.png";
     igniteState = false;
     let audio = new Audio("audio/woosh.mp3");
     audio.play();
     actionPause();
     setTimeout(function () {
-      mascotBody.src = "fotos/expressions/bodyNeutral.png";
+      bodyState.src = "fotos/expressions/bodyNeutral.png";
       burnKey();
       actionPlay();
     }, 1500);
@@ -311,10 +325,10 @@ function restart() {
   minuteScore = 0;
   igniteState = false;
   actionPlay();
-  mascotHead.src = "fotos/expressions/headNeutral.png";
-  mascotBody.src = "fotos/expressions/bodyNeutral.png";
-  mascotEye.src = "fotos/expressions/eyeNeutral.png";
-  mascotMouth.src = "fotos/expressions/mouthNeutral.png";
+  headState.src = "fotos/expressions/headNeutral.png";
+  bodyState.src = "fotos/expressions/bodyNeutral.png";
+  eyeState.src = "fotos/expressions/eyeNeutral.png";
+  mouthState.src = "fotos/expressions/mouthNeutral.png";
   document.getElementById("healthBars").style.visibility = "visible";
   document.getElementById("blink").style.display = "block";
   document.getElementById("internals").style.width = "290px";
@@ -327,6 +341,8 @@ function changeUser() {
   location.reload();
 }
 
+// event listeners
+startButton.addEventListener("click", startGame);
 beanButton.addEventListener("click", beans);
 proteinButton.addEventListener("click", protein);
 drinkButton.addEventListener("click", drink);
