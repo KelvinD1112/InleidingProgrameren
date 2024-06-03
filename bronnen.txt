@@ -1,0 +1,12 @@
+https://stackoverflow.com/questions/20277052/how-to-make-a-health-bar (<progress></progress>)
+https://www.w3schools.com/js/js_timing.asp#:~:text=The%20setInterval()%20method%20repeats,the%20function%20to%20be%20executed. (setInterval)
+https://www.quora.com/How-do-you-select-a-button-using-JavaScript (how to make a button, (this was before the lesson on buttons))
+https://www.geeksforgeeks.org/how-set-the-inset-shadow-using-css/ (css styling, inner shadow)
+https://www.youtube.com/watch?v=rpSaACMzAsA (changing images on button click (for the animations))
+https://www.squash.io/how-to-set-time-delay-in-javascript/ (delaying a function (voor de animaties))
+https://stackoverflow.com/questions/73076171/disable-text-selection-and-copying-in-html-in-macs-safari (making it so you cant select anything on the website)
+https://www.w3schools.com/jsref/prop_style_backgroundimage.asp (styling a background image in javascript)
+Friend from Russia (start stop function)
+Some audio is from: https://marketplace.elgato.com (pills.mp3, crunch and death is not from this website)
+https://www.shecodes.io/athena/26906-how-to-play-a-random-audio-from-an-array-in-javascript (ik was vergeten hoe een array werkte, en dit is ook waar de audio functionaliteit vandaan kwam)
+https://www.w3schools.com/howto/howto_css_placeholder.asp (small thing to change placeholder color) <--- this might be temporary
